@@ -102,12 +102,13 @@ jobs:
           git push -u origin "$BRANCH" --force
 
           EXISTING_PR=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number // empty')
+          gh label create lightwell --description "Lightwell remediation proposals" --color "0E4429" 2>/dev/null || true
           if [ -n "$EXISTING_PR" ]; then
-            gh pr edit "$EXISTING_PR" --title "$TITLE" --body-file /tmp/pr-body.md
+            gh pr edit "$EXISTING_PR" --title "$TITLE" --body-file /tmp/pr-body.md --add-label lightwell
             PR_URL=$(gh pr view "$EXISTING_PR" --json url --jq .url)
             echo "Updated PR: $PR_URL"
           else
-            PR_URL=$(gh pr create --title "$TITLE" --body-file /tmp/pr-body.md --base main --head "$BRANCH")
+            PR_URL=$(gh pr create --title "$TITLE" --body-file /tmp/pr-body.md --base main --head "$BRANCH" --label lightwell)
             echo "Opened PR: $PR_URL"
           fi
 

@@ -1,14 +1,18 @@
 # payments-service
 
+[![Lightwell updates](https://img.shields.io/github/issues-search?query=repo%3Aanurag-saran%2Fpayments-service%20is%3Apr%20is%3Aopen%20label%3Alightwell&label=Lightwell%20updates&color=0E4429)](https://github.com/anurag-saran/payments-service/pulls?q=is%3Apr+is%3Aopen+label%3Alightwell)
+
 Sample Maven payments service used to try the **Lightwell GitHub plugin**.
 
 Baseline dependency: `commons-io:2.11.0` (matches a Lightwell remediated version in the catalog).
 
+**Badge above:** live count of open Lightwell remediation PRs. Click it to review, then **merge** to accept or **close** to reject.
+
 ## How it works (Dependabot-style)
 
 1. The plugin **runs automatically** (on schedule, when `pom.xml` / catalog changes, or manual run).
-2. If matching Lightwell libraries are found, it **opens a PR** with the pom bumps and explains what changed.
-3. You **merge** to accept, or **close** to reject. No manual “open PR” button.
+2. If matching Lightwell libraries are found, it **opens a PR** (label `lightwell`) with the pom bumps.
+3. You see the count on the badge → click → **merge** or **close**.
 
 ## One-time setup
 
@@ -20,10 +24,8 @@ Baseline dependency: `commons-io:2.11.0` (matches a Lightwell remediated version
 
 ## Try it
 
-After the setup above, either wait for the automatic run or:
-
-1. **Actions** → **Lightwell Remediate** → **Run workflow**
-2. Open **Pull requests** — you should see a Lightwell remediation PR
+1. **Actions** → **Lightwell Remediate** → **Run workflow** (or wait for schedule / pom change)
+2. Click the **Lightwell updates** badge (or open **Pull requests** filtered by `label:lightwell`)
 3. Review the diff, then **Merge** or **Close**
 
 Expected pom change:
