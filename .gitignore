@@ -1,0 +1,7 @@
+.DS_Store
+target/
+lightwell-github/out/
+lightwell-github/__pycache__/
+*.pyc
+.idea/
+*.iml
