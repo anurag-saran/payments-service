@@ -4,7 +4,15 @@
 
 Sample Maven payments service — **demo app only** (no plugin code, no GitHub Actions workflows).
 
-Baseline dependency: `commons-io:2.11.0`.
+Baseline dependencies (Lightwell public demo feeds):
+
+| Tier | Coordinate | Version |
+|------|------------|---------|
+| validated | `commons-io:commons-io` | `2.11.0` |
+| validated | `com.fasterxml.jackson.core:jackson-databind` | `2.13.4` |
+| validated | `ch.qos.logback:logback-classic` | `1.2.11` |
+| remediated | `org.springframework:spring-core` | `5.3.18` |
+| remediated | `com.fasterxml.woodstox:woodstox-core` | `6.0.3` |
 
 Lightwell remediations are opened against this repo by the plugin:
 
@@ -24,4 +32,4 @@ https://github.com/anurag-saran/lightwell-github-plugin-demo
 
 ## Reset after merge
 
-Set `commons-io` back to `2.11.0` in `pom.xml` before re-running.
+Restore the baseline versions in `pom.xml` (table above) before re-running.
