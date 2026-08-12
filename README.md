@@ -1,6 +1,6 @@
 # payments-service
 
-[![Lightwell updates](https://img.shields.io/github/issues-search?query=repo%3Aanurag-saran%2Fpayments-service%20is%3Apr%20is%3Aopen%20label%3Alightwell&label=Lightwell%20updates&color=0E4429)](https://github.com/anurag-saran/payments-service/pulls?q=is%3Apr+is%3Aopen+label%3Alightwell)
+[![Lightwell library updates](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fanurag-saran%2Fpayments-service%2Fmain%2Flightwell-badge.json)](https://github.com/anurag-saran/payments-service/pulls?q=is%3Apr+is%3Aopen+label%3Alightwell)
 
 Sample Maven payments service — **demo app only** (no plugin code, no GitHub Actions workflows).
 
@@ -18,11 +18,12 @@ Lightwell remediations are opened against this repo by the plugin:
 
 https://github.com/anurag-saran/lightwell-github-plugin-demo
 
-**Badge:** open Lightwell PR count — click to review, then **merge** or **close**.
+**Badge:** number of Lightwell library updates available for this app (from the public demo catalog). Click to open the remediation PR.
 
 ## Layout
 
 - `pom.xml` / `src/` — the app
+- `lightwell-badge.json` — shields.io endpoint payload (updated by the plugin scan)
 
 ## Try the plugin
 
@@ -32,4 +33,4 @@ https://github.com/anurag-saran/lightwell-github-plugin-demo
 
 ## Reset after merge
 
-Restore the baseline versions in `pom.xml` (table above) before re-running.
+Restore the baseline versions in `pom.xml` (table above) before re-running. The badge will show available updates again on the next plugin scan.
