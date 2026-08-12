@@ -28,8 +28,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -91,16 +89,8 @@ jobs:
           git config user.name "lightwell-bot"
           git config user.email "lightwell-bot@users.noreply.github.com"
 
-          git checkout -B "$BRANCH" origin/main
-          # Re-apply after branch reset to origin/main
-          python3 lightwell-github/scan_poms.py --root .
-          MATCH_COUNT=$(python3 -c 'import json; print(len(json.load(open("lightwell-github/out/matches.json"))["matches"]))')
-          if [ "$MATCH_COUNT" = "0" ]; then
-            echo "Main already has remediations applied; nothing to open."
-            exit 0
-          fi
-          python3 lightwell-github/apply_bumps.py --root .
-          mapfile -t POMS < <(python3 -c 'import json; print("\n".join(m["pom"] for m in json.load(open("lightwell-github/out/matches.json"))["matches"]))')
+          # Keep working-tree bumps; create/reset branch tip from current main checkout
+          git switch -C "$BRANCH"
 
           git add "${POMS[@]}"
           if git diff --cached --quiet; then
@@ -109,7 +99,7 @@ jobs:
           fi
 
           git commit -m "$TITLE"
-          git push -u origin "$BRANCH" --force-with-lease
+          git push -u origin "$BRANCH" --force
 
           EXISTING_PR=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number // empty')
           if [ -n "$EXISTING_PR" ]; then
