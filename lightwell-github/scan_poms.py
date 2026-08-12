@@ -94,7 +94,7 @@ def render_report(matches: list[dict[str, Any]]) -> str:
         "",
         "This scan found Maven dependencies that have a matching Lightwell remediated version.",
         "",
-        "**No pull request has been opened yet.** Review the proposed changes below, then open a PR with the button.",
+        "A pull request is opened automatically so you can **merge** to accept or **close** to reject.",
         "",
     ]
     if not matches:
@@ -132,12 +132,10 @@ def render_report(matches: list[dict[str, Any]]) -> str:
     lines.extend(
         [
             "",
-            "## Next step (open PR)",
+            "## What you do",
             "",
-            "1. Open **Actions** → **Lightwell Open PR**",
-            "2. Click **Run workflow**",
-            "3. Set `confirm` to `open-pr`",
-            "4. Run the workflow — that creates the branch and pull request",
+            "1. Review the Lightwell remediation PR",
+            "2. **Merge** to accept the library update, or **Close** to reject it",
             "",
         ]
     )
