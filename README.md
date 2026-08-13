@@ -24,15 +24,21 @@ mvn -s settings.xml clean package
 
 Produces `target/payments-service.jar`, CycloneDX `target/bom.json`, and JaCoCo under `target/site/jacoco/`.
 
-## Dependency story
+## Fast-lane demo (jackson / commons-io / httpclient)
 
-| Coordinate | On `main` | Role |
-|------------|-----------|------|
-| `jackson-databind` | community `2.13.4` | Lightwell + upgrade-delta live bump hero |
-| Spring Boot / Spring / Security / commons-io / httpclient / json-smart | `*.rhlw-*` (default) or community (`-Pci-community`) | remediated baseline |
-| `json-path` `2.6.0`, `snakeyaml` `1.30` | community | upgrade-delta scorecard lanes |
+On `main`, those three stay on community versions matching the Lightwell catalog.
+A remediation PR that only bumps them typically grades **A/B** → shrink-allowed
+lanes (*Just smoke-test it* / *Test the parts you use*).
 
-Reference after-state for the jackson demo (do not commit as baseline): `pom-demo-trigger.xml`.
+`coverage-map.json` maps tests to app classes so the router can select:
+
+| Remediation | Primary call site | Selected tests (typical) |
+|-------------|-------------------|--------------------------|
+| jackson-databind | `PaymentService` | `PaymentServiceTest` + `BootSmokeIT` |
+| commons-io | `ReportArchive` | `ReportArchiveTest` + `BootSmokeIT` |
+| httpclient | `GatewayClient` | `GatewayClientTest` + `BootSmokeIT` |
+
+`./scripts/demo-live-cycle.sh start` bumps jackson only (cleanest fast-lane hero).
 
 ## Lightwell plugin
 
@@ -58,6 +64,7 @@ Details: upgrade-delta `docs/DEMO-LIVE-POM.md` (paths now refer to this repo).
 ## Layout
 
 - `pom.xml` / `src/` — Spring-ish payments service with real call sites
+- `coverage-map.json` — per-test coverage for fast-lane test selection
 - `settings.xml.template` — Lightwell Maven credentials
 - `.upgrade-delta/` — vendored upgrade-delta live pipeline (optional; for PaC)
 - `.tekton/pull-request-live.yaml` — PaC trigger for live grading
