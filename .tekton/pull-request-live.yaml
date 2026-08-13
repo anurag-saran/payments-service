@@ -51,7 +51,7 @@ spec:
     - name: pull-request-number
       value: '{{ pull_request_number }}'
     - name: scorecard-route-host
-      value: 'scorecard.apps.EXAMPLE.com'
+      value: 'scorecard-upgrade-delta-demo.apps.asaran.na-launch.com'
     # false for Lightwell remediations: keep PR open so CAB reports can be
     # reviewed and the PR merged. (demo-live-cycle.sh finish closes demo PRs.)
     - name: auto-close-pr
