@@ -9,41 +9,30 @@
   <version>1.0.0</version>
   <packaging>jar</packaging>
   <name>payments-service</name>
-  <description>
-    Shared demo app for Lightwell GitHub remediations and upgrade-delta live grading.
-    Not a production payments product.
-  </description>
+  <description>Real Spring Boot service on Red Hat Lightwell remediated dependencies</description>
 
   <properties>
     <java.version>17</java.version>
     <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <!-- Default: Lightwell remediated pins (needs settings.xml or public demo repos). -->
+    <!-- exact versions from the Lightwell remediated catalog, verified current
+         via fetch-lightwell-catalog-metadata.sh -->
     <spring-boot.version>2.7.18.rhlw-00004</spring-boot.version>
     <spring.version>5.3.18.rhlw-00010</spring.version>
     <spring-security.version>5.7.11.rhlw-00006</spring-security.version>
-    <!-- jackson-databind stays community on main — Lightwell plugin + live pom-bump hero. -->
-    <jackson.version>2.13.4</jackson.version>
+    <!-- jackson-databind ADOPTED Lightwell here; this line is the demo trigger -->
+    <jackson.version>2.13.4.rhlw-00001</jackson.version>
     <commons-io.version>2.11.0.rhlw-00001</commons-io.version>
     <httpclient.version>4.5.12.rhlw-00001</httpclient.version>
     <json-smart.version>2.5.0.rhlw-00001</json-smart.version>
   </properties>
 
+  <!-- ============================================================
+       Red Hat Lightwell remediated repository.
+       Auth: settings.xml server id 'lightwell-remediated' with your
+       console.redhat.com service account (orgID|name) + token.
+       ============================================================ -->
   <repositories>
-    <!-- Unauthenticated public demo feeds (CI / Lightwell plugin demos). -->
-    <repository>
-      <id>lightwell-public-remediated</id>
-      <url>https://packages.redhat.com/lightwell/public-lightwell-demo/java/remediated/</url>
-      <releases><enabled>true</enabled></releases>
-      <snapshots><enabled>false</enabled></snapshots>
-    </repository>
-    <repository>
-      <id>lightwell-public-validated</id>
-      <url>https://packages.redhat.com/lightwell/public-lightwell-demo/java/validated/</url>
-      <releases><enabled>true</enabled></releases>
-      <snapshots><enabled>false</enabled></snapshots>
-    </repository>
-    <!-- Authenticated console feed (preferred when credentials are available). -->
     <repository>
       <id>lightwell-remediated</id>
       <name>Red Hat Lightwell — remediated</name>
@@ -54,6 +43,7 @@
   </repositories>
 
   <dependencies>
+    <!-- Spring Boot web stack (pinned to Lightwell rebuilds, NOT the BOM defaults) -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot</artifactId>
@@ -90,11 +80,14 @@
       <version>${spring-security.version}</version>
     </dependency>
 
+    <!-- the CVE-relevant leaf: jackson-databind, the Lightwell hero.
+         Community version here on purpose; see the note in <properties> above. -->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>${jackson.version}</version>
     </dependency>
+
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
@@ -110,17 +103,8 @@
       <artifactId>json-smart</artifactId>
       <version>${json-smart.version}</version>
     </dependency>
-    <dependency>
-      <groupId>com.jayway.jsonpath</groupId>
-      <artifactId>json-path</artifactId>
-      <version>2.6.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.yaml</groupId>
-      <artifactId>snakeyaml</artifactId>
-      <version>1.30</version>
-    </dependency>
 
+    <!-- JUnit 5 for real tests -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
@@ -141,11 +125,14 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.1.2</version>
-        <!-- Live pipeline passes -Dsurefire.includesFile=... from upgrade-delta router. -->
+        <!-- upgrade-delta's router writes target/upgrade-delta/surefire-includes.txt;
+             point Surefire at it to run exactly the selected tests. -->
         <configuration>
+          <includesFile>${project.basedir}/target/upgrade-delta/surefire-includes.txt</includesFile>
           <failIfNoSpecifiedTests>false</failIfNoSpecifiedTests>
         </configuration>
       </plugin>
+      <!-- CycloneDX SBOM: produces target/bom.json for the coverage meter + scan -->
       <plugin>
         <groupId>org.cyclonedx</groupId>
         <artifactId>cyclonedx-maven-plugin</artifactId>
@@ -157,10 +144,11 @@
           </execution>
         </executions>
       </plugin>
+      <!-- JaCoCo: per-test coverage the router consumes -->
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.12</version>
+        <version>0.8.11</version>
         <executions>
           <execution><goals><goal>prepare-agent</goal></goals></execution>
           <execution><id>report</id><phase>test</phase><goals><goal>report</goal></goals></execution>
@@ -168,20 +156,4 @@
       </plugin>
     </plugins>
   </build>
-
-  <!-- CI / no-credentials: resolve everything from Maven Central. -->
-  <profiles>
-    <profile>
-      <id>ci-community</id>
-      <properties>
-        <spring-boot.version>2.7.18</spring-boot.version>
-        <spring.version>5.3.18</spring.version>
-        <spring-security.version>5.7.11</spring-security.version>
-        <jackson.version>2.13.4</jackson.version>
-        <commons-io.version>2.11.0</commons-io.version>
-        <httpclient.version>4.5.12</httpclient.version>
-        <json-smart.version>2.5.0</json-smart.version>
-      </properties>
-    </profile>
-  </profiles>
 </project>
