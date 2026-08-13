@@ -22,7 +22,8 @@ cp settings.xml.template settings.xml   # edit if using authenticated feed
 mvn -s settings.xml clean package
 ```
 
-Produces `target/payments-service.jar`, CycloneDX `target/bom.json`, and JaCoCo under `target/site/jacoco/`.
+Produces a **fat / shaded** `target/payments-service.jar` (dependencies packaged inside),
+CycloneDX `target/bom.json`, and JaCoCo under `target/site/jacoco/`.
 
 ## Fast-lane demo (jackson / commons-io / httpclient)
 
