@@ -52,8 +52,10 @@ spec:
       value: '{{ pull_request_number }}'
     - name: scorecard-route-host
       value: 'scorecard.apps.EXAMPLE.com'
+    # false for Lightwell remediations: keep PR open so CAB reports can be
+    # reviewed and the PR merged. (demo-live-cycle.sh finish closes demo PRs.)
     - name: auto-close-pr
-      value: 'true'
+      value: 'false'
   workspaces:
     - name: source
       persistentVolumeClaim:
