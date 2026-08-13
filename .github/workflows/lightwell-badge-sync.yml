@@ -9,6 +9,7 @@ on:
     paths:
       - "pom.xml"
       - "**/pom.xml"
+      - ".github/workflows/lightwell-badge-sync.yml"
   workflow_dispatch:
 
 permissions:
@@ -57,20 +58,29 @@ jobs:
           echo "Available library updates after scan: $MATCH_COUNT"
           echo "Available library updates: $MATCH_COUNT" >> "$GITHUB_STEP_SUMMARY"
 
+          python3 "$PLUGIN/write_badge.py" \
+            --matches /tmp/lightwell-out/matches.json \
+            --out /tmp/lightwell-badge.json
+
           git config user.name "lightwell-bot"
           git config user.email "lightwell-bot@users.noreply.github.com"
           gh auth setup-git
 
           git fetch origin main
           git fetch origin "$BRANCH" || true
-          git switch main
-          git pull --ff-only origin main
-          git switch -C "$BRANCH"
 
-          python3 "$PLUGIN/write_badge.py" \
-            --matches /tmp/lightwell-out/matches.json \
-            --out lightwell-badge.json
+          # Always publish onto the badge branch tip — never reset it from main.
+          # (main may still carry a stale lightwell-badge.json from early demos;
+          # resetting badge from main then made "git diff" look clean while the
+          # shields endpoint on lightwell/badge stayed wrong.)
+          if git show-ref --verify --quiet "refs/remotes/origin/$BRANCH"; then
+            git switch -C "$BRANCH" "origin/$BRANCH"
+          else
+            git switch --orphan "$BRANCH"
+            git rm -rf . >/dev/null 2>&1 || true
+          fi
 
+          cp /tmp/lightwell-badge.json lightwell-badge.json
           git add lightwell-badge.json
           if git diff --cached --quiet; then
             echo "Badge already up to date ($MATCH_COUNT available)."
