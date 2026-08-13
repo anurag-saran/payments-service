@@ -49,6 +49,10 @@ Plugin repo → Actions → Lightwell Remediate → target anurag-saran/payments
 
 Badge JSON lives on branch `lightwell/badge` (not `main`).
 
+After a remediation PR merges (or any `pom.xml` change on `main`),
+**Lightwell badge sync** re-scans and republishes the count so the README
+badge drops to `0 available` without a manual plugin run.
+
 ## upgrade-delta (live)
 
 Vendored pipeline bundle: copy from upgrade-delta via `./scripts/sync-vendor-bundle.sh` there, then sync into this repo (or run `scripts/pull-upgrade-delta-bundle.sh` here).
