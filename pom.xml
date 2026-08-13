@@ -25,9 +25,9 @@
     <!-- jackson / commons-io / httpclient stay community on main so the
          Lightwell plugin badge can show available remediations, and so the
          live jackson demo has something to bump. -->
-    <jackson.version>2.13.4.rhlw-00001</jackson.version>
-    <commons-io.version>2.11.0.rhlw-00001</commons-io.version>
-    <httpclient.version>4.5.12.rhlw-00001</httpclient.version>
+    <jackson.version>2.13.4</jackson.version>
+    <commons-io.version>2.11.0</commons-io.version>
+    <httpclient.version>4.5.12</httpclient.version>
     <json-smart.version>2.5.0.rhlw-00001</json-smart.version>
   </properties>
 
