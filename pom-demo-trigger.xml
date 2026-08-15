@@ -9,25 +9,22 @@
   <version>1.0.0</version>
   <packaging>jar</packaging>
   <name>payments-service</name>
-  <description>Real Spring Boot service on Red Hat Lightwell remediated dependencies</description>
+  <description>Demo trigger pom — community baselines matching public Lightwell demos</description>
 
   <properties>
     <java.version>17</java.version>
     <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <!-- exact versions from the Lightwell remediated catalog, verified current
-         via fetch-lightwell-catalog-metadata.sh -->
-    <spring-boot.version>2.7.18.rhlw-00004</spring-boot.version>
-    <spring.version>5.3.18.rhlw-00010</spring.version>
-    <spring-security.version>5.7.11.rhlw-00006</spring-security.version>
-    <!-- jackson-databind ADOPTED Lightwell here; this line is the demo trigger -->
-    <jackson.version>2.13.4.rhlw-00001</jackson.version>
-    <commons-io.version>2.11.0.rhlw-00001</commons-io.version>
-    <httpclient.version>4.5.12.rhlw-00001</httpclient.version>
-    <json-smart.version>2.5.0.rhlw-00001</json-smart.version>
+    <spring-boot.version>2.7.18</spring-boot.version>
+    <spring.version>5.3.18</spring.version>
+    <spring-security.version>5.7.11</spring-security.version>
+    <jackson.version>2.13.4</jackson.version>
+    <commons-io.version>2.11.0</commons-io.version>
+    <httpclient.version>4.5.12</httpclient.version>
+    <json-path.version>2.7.0</json-path.version>
+    <snakeyaml.version>1.30</snakeyaml.version>
   </properties>
 
-  <!-- Public Lightwell demo feeds only (unauthenticated). Maven Central is implicit. -->
   <repositories>
     <repository>
       <id>lightwell-public-remediated</id>
@@ -44,7 +41,6 @@
   </repositories>
 
   <dependencies>
-    <!-- Spring Boot web stack (pinned to Lightwell rebuilds, NOT the BOM defaults) -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot</artifactId>
@@ -80,15 +76,11 @@
       <artifactId>spring-security-web</artifactId>
       <version>${spring-security.version}</version>
     </dependency>
-
-    <!-- the CVE-relevant leaf: jackson-databind, the Lightwell hero.
-         Community version here on purpose; see the note in <properties> above. -->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>${jackson.version}</version>
     </dependency>
-
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
@@ -100,12 +92,15 @@
       <version>${httpclient.version}</version>
     </dependency>
     <dependency>
-      <groupId>net.minidev</groupId>
-      <artifactId>json-smart</artifactId>
-      <version>${json-smart.version}</version>
+      <groupId>com.jayway.jsonpath</groupId>
+      <artifactId>json-path</artifactId>
+      <version>${json-path.version}</version>
     </dependency>
-
-    <!-- JUnit 5 for real tests -->
+    <dependency>
+      <groupId>org.yaml</groupId>
+      <artifactId>snakeyaml</artifactId>
+      <version>${snakeyaml.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
@@ -115,7 +110,6 @@
   </dependencies>
 
   <build>
-    <finalName>payments-service</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -126,34 +120,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.1.2</version>
-        <!-- upgrade-delta's router writes target/upgrade-delta/surefire-includes.txt;
-             point Surefire at it to run exactly the selected tests. -->
-        <configuration>
-          <includesFile>${project.basedir}/target/upgrade-delta/surefire-includes.txt</includesFile>
-          <failIfNoSpecifiedTests>false</failIfNoSpecifiedTests>
-        </configuration>
-      </plugin>
-      <!-- CycloneDX SBOM: produces target/bom.json for the coverage meter + scan -->
-      <plugin>
-        <groupId>org.cyclonedx</groupId>
-        <artifactId>cyclonedx-maven-plugin</artifactId>
-        <version>2.7.11</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals><goal>makeAggregateBom</goal></goals>
-          </execution>
-        </executions>
-      </plugin>
-      <!-- JaCoCo: per-test coverage the router consumes -->
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.11</version>
-        <executions>
-          <execution><goals><goal>prepare-agent</goal></goals></execution>
-          <execution><id>report</id><phase>test</phase><goals><goal>report</goal></goals></execution>
-        </executions>
       </plugin>
     </plugins>
   </build>

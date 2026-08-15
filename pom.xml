@@ -12,27 +12,32 @@
   <description>
     Shared demo app for Lightwell GitHub remediations and upgrade-delta live grading.
     Not a production payments product.
+    Lightwell versions (when used) come only from the public console demos:
+    java-remediated-demo / java-validated-demo (public-lightwell-demo Maven feeds).
   </description>
 
   <properties>
     <java.version>17</java.version>
     <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <!-- Default: Lightwell remediated pins (needs settings.xml or public demo repos). -->
-    <spring-boot.version>2.7.18.rhlw-00004</spring-boot.version>
-    <spring.version>5.3.18.rhlw-00010</spring.version>
-    <spring-security.version>5.7.11.rhlw-00006</spring-security.version>
-    <!-- jackson / commons-io / httpclient stay community on main so the
-         Lightwell plugin badge can show available remediations, and so the
-         live jackson demo has something to bump. -->
+    <!-- Framework: community builds (not on the public Lightwell demo feeds). -->
+    <spring-boot.version>2.7.18</spring-boot.version>
+    <spring.version>5.3.18</spring.version>
+    <spring-security.version>5.7.11</spring-security.version>
+    <!-- Demo remediations stay on community so the badge can show available updates.
+         fromVersions match console.redhat.com Lightwell public demos. -->
     <jackson.version>2.13.4</jackson.version>
     <commons-io.version>2.11.0</commons-io.version>
     <httpclient.version>4.5.12</httpclient.version>
-    <json-smart.version>2.5.0.rhlw-00001</json-smart.version>
+    <json-path.version>2.7.0</json-path.version>
+    <!-- Deliberately pre-1.33 community so ConfigLoader's removed constructor stays reachable. -->
+    <snakeyaml.version>1.30</snakeyaml.version>
   </properties>
 
   <repositories>
-    <!-- Public Lightwell demo feeds only (unauthenticated). Maven Central is implicit. -->
+    <!-- Public Lightwell demo feeds only (unauthenticated). Maven Central is implicit.
+         https://console.redhat.com/lightwell/demo/java-remediated-demo
+         https://console.redhat.com/lightwell/demo/java-validated-demo -->
     <repository>
       <id>lightwell-public-remediated</id>
       <url>https://packages.redhat.com/lightwell/public-lightwell-demo/java/remediated/</url>
@@ -100,19 +105,14 @@
       <version>${httpclient.version}</version>
     </dependency>
     <dependency>
-      <groupId>net.minidev</groupId>
-      <artifactId>json-smart</artifactId>
-      <version>${json-smart.version}</version>
-    </dependency>
-    <dependency>
       <groupId>com.jayway.jsonpath</groupId>
       <artifactId>json-path</artifactId>
-      <version>2.6.0</version>
+      <version>${json-path.version}</version>
     </dependency>
     <dependency>
       <groupId>org.yaml</groupId>
       <artifactId>snakeyaml</artifactId>
-      <version>1.30</version>
+      <version>${snakeyaml.version}</version>
     </dependency>
 
     <dependency>
@@ -195,7 +195,7 @@
     </plugins>
   </build>
 
-  <!-- CI / no-credentials: resolve everything from Maven Central. -->
+  <!-- Kept for existing Tekton/CI invocations of -Pci-community (same pins as default). -->
   <profiles>
     <profile>
       <id>ci-community</id>
@@ -206,7 +206,8 @@
         <jackson.version>2.13.4</jackson.version>
         <commons-io.version>2.11.0</commons-io.version>
         <httpclient.version>4.5.12</httpclient.version>
-        <json-smart.version>2.5.0</json-smart.version>
+        <json-path.version>2.7.0</json-path.version>
+        <snakeyaml.version>1.30</snakeyaml.version>
       </properties>
     </profile>
   </profiles>

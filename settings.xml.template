@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copy to ~/.m2/settings.xml (or pass with -s settings.xml) and fill in your
-     console.redhat.com service account. The username is 'orgID|service-account-name'
-     and the password is your token. -->
+<!-- Optional. The payments-service pom uses only the public Lightwell demo Maven
+     feeds (no auth). Copy this only if you also resolve other authenticated
+     Red Hat repositories outside this demo.
+
+     Public demos (no credentials):
+       https://console.redhat.com/lightwell/demo/java-remediated-demo
+       https://console.redhat.com/lightwell/demo/java-validated-demo
+       https://packages.redhat.com/lightwell/public-lightwell-demo/java/...
+-->
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0">
-  <servers>
-    <server>
-      <id>lightwell-remediated</id>
-      <username>YOUR_ORG_ID|your-service-account</username>
-      <password>YOUR_TOKEN</password>
-    </server>
-  </servers>
+  <mirrors/>
 </settings>

@@ -14,21 +14,24 @@ Not a production payments product. Package: `com.example.payments`.
 JDK 17+.
 
 ```bash
-# CI / no Lightwell credentials (Maven Central community pins):
+# Community pins on main (Maven Central). Public Lightwell demo feeds are declared
+# in pom.xml for remediations only — see console.redhat.com Lightwell demos:
+#   /lightwell/demo/java-remediated-demo
+#   /lightwell/demo/java-validated-demo
+mvn -B verify
+# Equivalent (kept for pipeline scripts):
 mvn -B -Pci-community verify
-
-# Lightwell remediated pins (public demo repos and/or settings.xml):
-cp settings.xml.template settings.xml   # edit if using authenticated feed
-mvn -s settings.xml clean package
 ```
 
 Produces a **fat / shaded** `target/payments-service.jar` (dependencies packaged inside),
 CycloneDX `target/bom.json`, and JaCoCo under `target/site/jacoco/`.
 
-## Fast-lane demo (jackson / commons-io / httpclient)
+## Fast-lane demo (public Lightwell demo catalog)
 
-On `main`, those three stay on community versions matching the Lightwell catalog.
-A remediation PR that only bumps them typically grades **A/B** → shrink-allowed
+On `main`, remediable deps stay on **community** `fromVersion`s that appear on the
+public console demos (validated + remediated). No authenticated Lightwell pins.
+Typical badge matches: jackson-databind, commons-io, httpclient, spring-core, json-path.
+A remediation PR that only bumps those typically grades **A/B** → shrink-allowed
 lanes (*Just smoke-test it* / *Test the parts you use*).
 
 `coverage-map.json` maps tests to app classes so the router can select:
