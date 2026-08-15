@@ -27,16 +27,17 @@
     <json-smart.version>2.5.0.rhlw-00001</json-smart.version>
   </properties>
 
-  <!-- ============================================================
-       Red Hat Lightwell remediated repository.
-       Auth: settings.xml server id 'lightwell-remediated' with your
-       console.redhat.com service account (orgID|name) + token.
-       ============================================================ -->
+  <!-- Public Lightwell demo feeds only (unauthenticated). Maven Central is implicit. -->
   <repositories>
     <repository>
-      <id>lightwell-remediated</id>
-      <name>Red Hat Lightwell — remediated</name>
-      <url>https://packages.redhat.com/lightwell/java/remediated</url>
+      <id>lightwell-public-remediated</id>
+      <url>https://packages.redhat.com/lightwell/public-lightwell-demo/java/remediated/</url>
+      <releases><enabled>true</enabled></releases>
+      <snapshots><enabled>false</enabled></snapshots>
+    </repository>
+    <repository>
+      <id>lightwell-public-validated</id>
+      <url>https://packages.redhat.com/lightwell/public-lightwell-demo/java/validated/</url>
       <releases><enabled>true</enabled></releases>
       <snapshots><enabled>false</enabled></snapshots>
     </repository>

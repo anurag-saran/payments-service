@@ -32,7 +32,7 @@
   </properties>
 
   <repositories>
-    <!-- Unauthenticated public demo feeds (CI / Lightwell plugin demos). -->
+    <!-- Public Lightwell demo feeds only (unauthenticated). Maven Central is implicit. -->
     <repository>
       <id>lightwell-public-remediated</id>
       <url>https://packages.redhat.com/lightwell/public-lightwell-demo/java/remediated/</url>
@@ -42,14 +42,6 @@
     <repository>
       <id>lightwell-public-validated</id>
       <url>https://packages.redhat.com/lightwell/public-lightwell-demo/java/validated/</url>
-      <releases><enabled>true</enabled></releases>
-      <snapshots><enabled>false</enabled></snapshots>
-    </repository>
-    <!-- Authenticated console feed (preferred when credentials are available). -->
-    <repository>
-      <id>lightwell-remediated</id>
-      <name>Red Hat Lightwell — remediated</name>
-      <url>https://packages.redhat.com/lightwell/java/remediated</url>
       <releases><enabled>true</enabled></releases>
       <snapshots><enabled>false</enabled></snapshots>
     </repository>
