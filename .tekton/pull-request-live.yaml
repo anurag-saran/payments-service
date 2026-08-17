@@ -60,7 +60,10 @@ spec:
     - name: auto-close-pr
       value: 'false'
     - name: enable-canary
-      value: 'true'
+      # This demo cluster's Image Registry operator is Removed, so binary
+      # builds cannot push. Flip to "true" when an internal/external registry
+      # is available for payments-service images.
+      value: 'false'
     - name: canary-namespace
       value: 'upgrade-delta-demo'
     - name: canary-soak-seconds
