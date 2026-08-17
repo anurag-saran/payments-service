@@ -21,8 +21,10 @@
     <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- Framework: community builds (not on the public Lightwell demo feeds). -->
+    <!-- spring-core isolated: only spring-core has a public demo rhlw jar. -->
     <spring-boot.version>2.7.18</spring-boot.version>
-    <spring.version>5.3.18.rhlw-00003</spring.version>
+    <spring.version>5.3.18</spring.version>
+    <spring-core.version>5.3.18.rhlw-00003</spring-core.version>
     <spring-security.version>5.7.11</spring-security.version>
     <!-- Demo remediations stay on community so the badge can show available updates.
          fromVersions match console.redhat.com Lightwell public demos. -->
@@ -76,7 +78,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
-      <version>${spring.version}</version>
+      <version>${spring-core.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.security</groupId>
@@ -202,6 +204,7 @@
       <properties>
         <spring-boot.version>2.7.18</spring-boot.version>
         <spring.version>5.3.18</spring.version>
+        <spring-core.version>5.3.18</spring-core.version>
         <spring-security.version>5.7.11</spring-security.version>
         <jackson.version>2.13.4</jackson.version>
         <commons-io.version>2.11.0</commons-io.version>
