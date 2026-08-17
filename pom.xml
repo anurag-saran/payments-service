@@ -20,8 +20,10 @@
     <java.version>17</java.version>
     <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <!-- Framework: community builds (not on the public Lightwell demo feeds). -->
-    <!-- spring-core isolated: only spring-core has a public demo rhlw jar. -->
+    <!-- Framework: community builds (not on the public Lightwell demo feeds).
+         spring-core has its own property so Lightwell can remediate it without
+         also bumping spring-web/webmvc (those rhlw jars are not on the public
+         demo feeds). -->
     <spring-boot.version>2.7.18</spring-boot.version>
     <spring.version>5.3.18</spring.version>
     <spring-core.version>5.3.18.rhlw-00003</spring-core.version>

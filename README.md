@@ -1,6 +1,6 @@
 # payments-service
 
-[![Lightwell library updates](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fanurag-saran%2Fpayments-service%2Flightwell%2Fbadge%2Flightwell-badge.json)](https://github.com/anurag-saran/payments-service/pulls?q=is%3Apr+is%3Aopen+label%3Alightwell)
+[![Lightwell library updates](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fanurag-saran%2Fpayments-service%2Flightwell%2Fbadge%2Flightwell-badge.json&v=2)](https://github.com/anurag-saran/payments-service/pulls?q=is%3Apr+is%3Aopen+label%3Alightwell)
 
 **Shared demo app** for:
 
