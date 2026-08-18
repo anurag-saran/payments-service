@@ -1,5 +1,7 @@
-# Live pipeline trigger for payments-service (jackson Lightwell demo).
+# Live pipeline trigger for payments-service (jackson Lightwell demo — WITH tests).
 # Requires .upgrade-delta/ vendor bundle and cluster secrets (maven settings, PaC).
+# PVC upgrade-delta-live-reports is dedicated to this app; the REACHABILITY_ONLY
+# sibling uses payments-service-notests + upgrade-delta-live-reports-notests.
 #
 # Demo cycle: ./scripts/demo-live-cycle.sh start | finish
 apiVersion: tekton.dev/v1
