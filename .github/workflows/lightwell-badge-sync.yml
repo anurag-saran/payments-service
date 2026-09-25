@@ -1,8 +1,9 @@
+# Copy into each target app as `.github/workflows/lightwell-badge-sync.yml`.
+# Merging a Lightwell remediation PR (or any pom.xml change on main) re-scans
+# and publishes lightwell-badge.json on branch lightwell/badge — no manual
+# plugin run required for the README shields count to stay current.
 name: Lightwell badge sync
 
-# Keep the README shields badge aligned with pom.xml on main.
-# Merging a Lightwell remediation PR (or any pom change) re-scans and
-# publishes lightwell-badge.json on branch lightwell/badge.
 on:
   push:
     branches: [main]
@@ -32,6 +33,7 @@ jobs:
       - name: Checkout Lightwell plugin (scan + badge helpers)
         uses: actions/checkout@v4
         with:
+          # Override if you forked the plugin.
           repository: anurag-saran/lightwell-github-plugin-demo
           path: _lightwell
 
@@ -70,9 +72,6 @@ jobs:
           git fetch origin "$BRANCH" || true
 
           # Always publish onto the badge branch tip — never reset it from main.
-          # (main may still carry a stale lightwell-badge.json from early demos;
-          # resetting badge from main then made "git diff" look clean while the
-          # shields endpoint on lightwell/badge stayed wrong.)
           if git show-ref --verify --quiet "refs/remotes/origin/$BRANCH"; then
             git switch -C "$BRANCH" "origin/$BRANCH"
           else
