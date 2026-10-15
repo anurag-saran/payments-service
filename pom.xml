@@ -20,22 +20,18 @@
     <java.version>17</java.version>
     <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <!-- Framework: community builds (not on the public Lightwell demo feeds).
-         spring-core has its own property so Lightwell can remediate it without
-         also bumping spring-web/webmvc (those rhlw jars are not on the public
-         demo feeds). -->
-    <spring-boot.version>2.7.18</spring-boot.version>
-    <spring.version>5.3.18</spring.version>
-    <spring-core.version>5.3.18</spring-core.version>
-    <spring-security.version>5.7.11</spring-security.version>
-    <!-- Demo remediations stay on community so the badge can show available updates.
-         fromVersions match console.redhat.com Lightwell public demos. -->
-    <jackson.version>2.13.4</jackson.version>
-    <commons-io.version>2.11.0</commons-io.version>
-    <httpclient.version>4.5.12</httpclient.version>
-    <json-path.version>2.7.0</json-path.version>
-    <!-- Deliberately pre-1.33 community so ConfigLoader's removed constructor stays reachable. -->
-    <snakeyaml.version>1.30</snakeyaml.version>
+    <!-- Lightwell framework versions from catalog.json. -->
+    <spring-boot.version>2.7.18.rhlw-00004</spring-boot.version>
+    <spring.version>5.3.18.rhlw-00010</spring.version>
+    <spring-core.version>5.3.18.rhlw-00010</spring-core.version>
+    <spring-security.version>5.7.11.rhlw-00006</spring-security.version>
+    <!-- Lightwell dependency versions from catalog.json. -->
+    <jackson.version>2.13.4.rhlw-00001</jackson.version>
+    <commons-io.version>2.11.0.rhlw-00001</commons-io.version>
+    <httpclient.version>4.5.12.rhlw-00001</httpclient.version>
+    <json-path.version>2.7.0.rhlw-00001</json-path.version>
+    <!-- Catalog version requires a SnakeYAML base-version upgrade. -->
+    <snakeyaml.version>1.33.0.rhlw-00001</snakeyaml.version>
   </properties>
 
   <repositories>
@@ -199,20 +195,20 @@
     </plugins>
   </build>
 
-  <!-- Kept for existing Tekton/CI invocations of -Pci-community (same pins as default). -->
+  <!-- Kept for existing Tekton/CI invocations of -Pci-community (same Lightwell pins as default). -->
   <profiles>
     <profile>
       <id>ci-community</id>
       <properties>
-        <spring-boot.version>2.7.18</spring-boot.version>
-        <spring.version>5.3.18</spring.version>
-        <spring-core.version>5.3.18</spring-core.version>
-        <spring-security.version>5.7.11</spring-security.version>
-        <jackson.version>2.13.4</jackson.version>
-        <commons-io.version>2.11.0</commons-io.version>
-        <httpclient.version>4.5.12</httpclient.version>
-        <json-path.version>2.7.0</json-path.version>
-        <snakeyaml.version>1.30</snakeyaml.version>
+        <spring-boot.version>2.7.18.rhlw-00004</spring-boot.version>
+        <spring.version>5.3.18.rhlw-00010</spring.version>
+        <spring-core.version>5.3.18.rhlw-00010</spring-core.version>
+        <spring-security.version>5.7.11.rhlw-00006</spring-security.version>
+        <jackson.version>2.13.4.rhlw-00001</jackson.version>
+        <commons-io.version>2.11.0.rhlw-00001</commons-io.version>
+        <httpclient.version>4.5.12.rhlw-00001</httpclient.version>
+        <json-path.version>2.7.0.rhlw-00001</json-path.version>
+        <snakeyaml.version>1.33.0.rhlw-00001</snakeyaml.version>
       </properties>
     </profile>
   </profiles>
