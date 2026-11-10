@@ -34,7 +34,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           # Override if you forked the plugin.
-          repository: anurag-saran/lightwell-github-plugin-demo
+          repository: darbyredhat/lightwell-github-plugin-demo
           path: _lightwell
 
       - name: Set up Python

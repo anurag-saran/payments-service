@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   verify:
-    name: mvn verify (ci-community)
+    name: mvn verify
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,5 +19,7 @@ jobs:
           distribution: temurin
           java-version: "17"
           cache: maven
+      # Builds the versions declared in pom.xml (not the ci-community profile), so a Lightwell
+      # remediation PR is built and tested with the Lightwell versions it proposes.
       - name: Verify
-        run: mvn -B -q -Pci-community verify
+        run: mvn -B -q verify

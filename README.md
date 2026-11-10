@@ -1,10 +1,10 @@
 # payments-service
 
-[![Lightwell library updates](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fanurag-saran%2Fpayments-service%2Flightwell%2Fbadge%2Flightwell-badge.json&v=3)](https://github.com/anurag-saran/payments-service/pulls?q=is%3Apr+is%3Aopen+label%3Alightwell)
+[![Lightwell library updates](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fdarbyredhat%2Fpayments-service%2Flightwell%2Fbadge%2Flightwell-badge.json&v=3)](https://github.com/darbyredhat/payments-service/pulls?q=is%3Apr+is%3Aopen+label%3Alightwell)
 
 **Shared demo app** for:
 
-1. **[Lightwell GitHub plugin](https://github.com/anurag-saran/lightwell-github-plugin-demo)** — remediates matching community deps (badge + PR)
+1. **[Lightwell GitHub plugin](https://github.com/darbyredhat/lightwell-github-plugin-demo)** — remediates matching community deps (badge + PR)
 2. **[upgrade-delta](https://github.com/anurag-saran/upgrade-delta)** — live pom bump → grade → test routing (jackson hero)
 
 Not a production payments product. Package: `com.example.payments`.
@@ -47,7 +47,7 @@ lanes (*Just smoke-test it* / *Test the parts you use*).
 ## Lightwell plugin
 
 ```text
-Plugin repo → Actions → Lightwell Remediate → target anurag-saran/payments-service
+Plugin repo → Actions → Lightwell Remediate → target darbyredhat/payments-service
 ```
 
 Badge JSON lives on branch `lightwell/badge` (not `main`).
